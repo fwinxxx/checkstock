@@ -1,0 +1,27 @@
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+.env
+.DS_Store
+output/
+playwright-report/
+test-results/
+
+# Local settings and generated artifacts
+.env.*
+!.env.example
+node_modules/
+.idea/
+.vscode/
+*.sqlite
+*.sqlite3
+*.db
+*.mp4
+*.webm
+*.m4a
+*.wav
+*.mp3

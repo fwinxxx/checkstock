@@ -1,0 +1,15 @@
+name: CheckStock checks
+on: [push, pull_request]
+
+jobs:
+  inventory:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build and test against PostgreSQL
+        run: docker compose --profile test run --build --rm tests
+      - name: Lint and formatting
+        run: docker compose --profile test run --rm tests sh -c 'ruff check app tests migrations scripts && ruff format --check app tests migrations scripts'
+      - name: Clean up
+        if: always()
+        run: docker compose --profile test down -v

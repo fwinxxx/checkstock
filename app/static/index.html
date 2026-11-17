@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="theme-color" content="#203e35" />
+    <meta
+      name="description"
+      content="CheckStock — остатки, резервы и отправки вашего магазина."
+    />
+    <title>Остатки · CheckStock</title>
+    <link rel="icon" href="/static/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="/static/styles.css" />
+    <script src="/static/app.js" defer></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">К содержимому</a>
+    <aside class="sidebar">
+      <a class="brand" href="#stock"
+        ><span class="brand-mark" data-icon="box"></span
+        ><span>CheckStock</span></a
+      >
+      <div class="workspace">
+        <strong>Ракета</strong><span class="demo-badge">Демо</span>
+      </div>
+      <nav aria-label="Основная навигация">
+        <a href="#stock" data-page="stock" aria-label="Остатки"
+          ><span data-icon="stock"></span><span class="nav-text">Остатки</span
+          ><span class="nav-count" id="sku-count">3</span></a
+        >
+        <a href="#flows" data-page="flows" aria-label="Отправки и резервы"
+          ><span data-icon="transfer"></span
+          ><span class="nav-text">Отправки и резервы</span
+          ><span class="nav-count" id="flow-count">0</span></a
+        >
+        <a href="#history" data-page="history" aria-label="История операций"
+          ><span data-icon="history"></span
+          ><span class="nav-text">История операций</span></a
+        >
+        <a href="#warehouses" data-page="warehouses" aria-label="Склады"
+          ><span data-icon="warehouse"></span
+          ><span class="nav-text">Склады</span></a
+        >
+      </nav>
+      <div class="sidebar-bottom">Складской учёт</div>
+    </aside>
+    <div class="app-shell">
+      <header class="topbar">
+        <div>
+          <span class="breadcrumb">Ракета</span
+          ><span class="slash" aria-hidden="true">/</span
+          ><span id="breadcrumb-title">Остатки</span>
+        </div>
+      </header>
+      <main id="main-content" tabindex="-1">
+        <div
+          id="connection-error"
+          class="notice error"
+          role="alert"
+          hidden
+        ></div>
+        <div id="pending-banner" class="notice warning" hidden>
+          <div>
+            <strong>Результат операции ещё не подтверждён</strong>
+            <p>
+              Проверьте результат, чтобы продолжить работу без повторного
+              списания.
+            </p>
+          </div>
+          <button class="btn secondary" id="retry-pending">
+            Проверить результат
+          </button>
+        </div>
+        <section class="page-heading">
+          <div>
+            <h1 id="page-title">Остатки</h1>
+            <p id="page-description">Товар на складах, в резерве и в пути.</p>
+          </div>
+          <div class="heading-actions">
+            <button class="btn secondary" id="refresh">
+              <span data-icon="refresh"></span>Обновить
+            </button>
+            <button
+              class="btn primary"
+              id="new-operation"
+              popovertarget="operation-menu"
+              data-operation-menu=""
+              aria-haspopup="menu"
+              aria-controls="operation-menu"
+              aria-expanded="false"
+              disabled
+            >
+              <span data-icon="plus"></span>Новая операция<span
+                data-icon="chevron"
+              ></span>
+            </button>
+          </div>
+        </section>
+        <div id="loading" class="loading" role="status">
+          Загружаем остатки…
+          <div class="loading-placeholder"></div>
+        </div>
+        <div id="page-content" hidden></div>
+        <footer><span id="updated-at"></span></footer>
+      </main>
+    </div>
+    <div
+      id="operation-menu"
+      class="operation-menu"
+      popover="auto"
+      role="menu"
+      aria-label="Новая операция"
+    ></div>
+    <dialog id="action-dialog" aria-labelledby="dialog-title">
+      <form id="action-form">
+        <header class="dialog-header">
+          <h2 id="dialog-title"></h2>
+          <button
+            type="button"
+            class="icon-button"
+            id="close-dialog"
+            aria-label="Закрыть"
+          >
+            <span data-icon="close"></span>
+          </button>
+        </header>
+        <p id="dialog-context" class="dialog-context" hidden></p>
+        <div id="dialog-body"></div>
+        <div id="form-error" class="notice error" role="alert" hidden></div>
+        <div class="dialog-footer">
+          <button type="button" class="btn secondary" id="cancel-dialog">
+            Отмена</button
+          ><button type="submit" class="btn primary" id="submit-action">
+            Подтвердить
+          </button>
+        </div>
+      </form>
+    </dialog>
+    <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+  </body>
+</html>
